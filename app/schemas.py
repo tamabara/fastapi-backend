@@ -45,8 +45,9 @@ class ProductBase(BaseModel):
 
 class Product(ProductBase):
 	title: str
-	category: str
-	nutri_score: str
+	category: Union[str, None]
+	nutri_score: Union[str, None]
+	brands: Union[List[str], None]
 	carbon_score: int = Field(title="CarbonScore", description="This value is the carbon score", gt=0, le=100)
 
 	class Config:

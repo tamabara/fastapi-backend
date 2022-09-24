@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.hybrid import hybrid_method
 
 from .database import Base
 
