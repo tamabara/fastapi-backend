@@ -45,8 +45,8 @@ class ProductBase(BaseModel):
 
 class Product(ProductBase):
 	title: str
-	description: str
 	category: str
+	nutri_score: str
 	carbon_score: int = Field(title="CarbonScore", description="This value is the carbon score", gt=0, le=100)
 
 	class Config:

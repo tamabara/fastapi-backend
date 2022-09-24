@@ -9,7 +9,7 @@ from .database import engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-	title="SlashProject API",
+	title="Tamabara API",
 	description="This api is able to create a carbon footprint index for consumable goods. The carbon footprint is only an aproximation!",
 	version="0.2.0",
 	dependencies=[]
