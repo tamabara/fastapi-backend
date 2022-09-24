@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 
-from ..models import ProductInfo, Product
+from ..schemas import Product, ProductBase
 
 router = APIRouter(
     prefix="/product",
@@ -9,10 +9,16 @@ router = APIRouter(
     responses={404: {"error": "Not found"}},
 )
 
-@router.get("/info", summary="ProductInfo", response_model=Product)
-async def get_info(item: ProductInfo):
+@router.post("/info", summary="ProductInfo", response_model=Product)
+async def get_info(item: ProductBase):
 	"""
 	Get product information from the api
 	"""
 
-	return {"name": "Productname"}
+	return Product(
+		ean="number",
+		title="productname",
+		description="description",
+		category="category",
+		carbon_score=50
+	)

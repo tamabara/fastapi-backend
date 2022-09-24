@@ -9,3 +9,7 @@ pip install -r requirements.txt
 ```
 
 A good practice is to first create a virtual enviroment and install everythin inside of that enviroment.
+
+
+## ToDo
+- change crud update and api requests!!!
