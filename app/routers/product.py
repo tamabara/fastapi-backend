@@ -100,8 +100,9 @@ def create_carbon_score(co2_per_100g: int):
 	BADDEST_CO2_GRAMMS = 500
 	percentage = (co2_per_100g / BADDEST_CO2_GRAMMS) * 100
 	if percentage > 0.0:
-		return round(percentage if percentage <= 100.0 else 100.0)
-	return 1.0
+		percentage = 100.0 - round(percentage if percentage <= 100.0 else 100.0)
+		return percentage if percentage > 0.0 else 1.0
+	return 100.0
 
 @router.post("/info", summary="ProductInfo", response_model=Product)
 async def get_info(item: ProductBase, db: Session = Depends(get_db)):
