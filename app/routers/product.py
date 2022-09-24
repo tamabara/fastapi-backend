@@ -9,6 +9,10 @@ router = APIRouter(
     responses={404: {"error": "Not found"}},
 )
 
-@router.get("/info", response_model=Product)
+@router.get("/info", summary="ProductInfo", response_model=Product)
 async def get_info(item: ProductInfo):
-    return {"name": "Productname"}
+	"""
+	Get product information from the api
+	"""
+
+	return {"name": "Productname"}

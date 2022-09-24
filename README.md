@@ -1,4 +1,5 @@
 # fastapi-backend
+Api for creating a aproximation carbon footpint index for consumbale goods.
 
 ## Installation
 To install/use this api execute:
