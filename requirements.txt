@@ -3,3 +3,5 @@ uvicorn
 sqlalchemy
 requests
 openfoodfacts
+fuzzywuzzy
+python-Levenshtein
