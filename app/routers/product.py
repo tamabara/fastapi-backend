@@ -100,7 +100,7 @@ def carbon_calulator(ingredients: List[dict], baseingredients: dict):
 	return total_carb
 
 def create_carbon_score(co2_per_100g: int):
-	BADDEST_CO2_GRAMMS = 500
+	BADDEST_CO2_GRAMMS = 340
 	percentage = (co2_per_100g / BADDEST_CO2_GRAMMS) * 100
 	if percentage > 0.0:
 		percentage = 100.0 - round(percentage if percentage <= 100.0 else 100.0)
