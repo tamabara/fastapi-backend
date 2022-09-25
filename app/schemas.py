@@ -47,6 +47,7 @@ class Product(ProductBase):
 	title: str
 	category: Union[str, None]
 	nutri_score: Union[str, None]
+	image_url: Union[str, None]
 	brands: Union[List[str], None]
 	carbon_score: int = Field(title="CarbonScore", description="This value is the carbon score", gt=0, le=100)
 

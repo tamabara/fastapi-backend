@@ -1,12 +1,15 @@
 from typing import List
 from math import prod
 from unittest import result
+from urllib import request
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 import openfoodfacts
 from fuzzywuzzy import fuzz
 from statistics import median
+import requests
+from bs4 import BeautifulSoup
 
 from ..database import SessionLocal
 from ..schemas import Product, ProductBase
@@ -104,6 +107,18 @@ def create_carbon_score(co2_per_100g: int):
 		return percentage if percentage > 0.0 else 1.0
 	return 100.0
 
+def get_image(ean: str):
+	response = requests.get(
+		f"https://de.images.search.yahoo.com/search/images?p={ean}",
+		headers={
+			"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15"
+		}
+	)
+	soup = BeautifulSoup(response.content, "lxml")
+	urls = [item.find('img')["data-src"] for item in soup.find(id="sres").find_all("li")]
+	return urls[0] if len(urls) > 0 else None
+
+
 @router.post("/info", summary="ProductInfo", response_model=Product)
 async def get_info(item: ProductBase, db: Session = Depends(get_db)):
 	"""
@@ -113,12 +128,14 @@ async def get_info(item: ProductBase, db: Session = Depends(get_db)):
 	name, ingredients, baseingredients, nutriscore, category, brands = get_ingredients(db, item.ean, 85)
 	co2_per_100g = carbon_calulator(ingredients, baseingredients)
 	carbon_score = create_carbon_score(co2_per_100g)
+	img_src = get_image(ean=item.ean)
 
 	return Product(
 		ean=item.ean,
 		title=name,
 		category=category,
 		nutri_score=nutriscore,
+		image_url=img_src,
 		brands=brands,
 		carbon_score=carbon_score
 	)

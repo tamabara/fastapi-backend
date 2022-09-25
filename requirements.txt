@@ -5,3 +5,5 @@ requests
 openfoodfacts
 fuzzywuzzy
 python-Levenshtein
+bs4
+lxml
